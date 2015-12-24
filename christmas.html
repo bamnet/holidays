@@ -24,6 +24,27 @@
           center: {lat: 0, lng: 0},
           zoom: 2
         });
+
+        var panConfig = {
+          distance: 2,
+          interval: 80,
+        }
+        var panner = setInterval(function(){
+          pan(panConfig.distance)
+        }, panConfig.interval);
+      }
+
+      /**
+       * Pan the map a few longitudinal degrees.
+       * Passing a positive increment will pan the map East.
+       * @param(number) increment Longitudes to increment.
+       */
+      function pan(increment) {
+        var center = map.getCenter();
+        map.panTo({
+          lat: center.lat(),
+          lng: center.lng() - increment
+        });
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
