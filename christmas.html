@@ -13,10 +13,30 @@
       #map {
         height: 100%;
       }
+      #santa {
+        position:absolute;
+        left: 40%;
+
+        transition-property: top;
+        transition-duration: 2s;
+        transition-timing-function: ease-in-out;
+      }
+      #santa img {
+        width: 200px;
+      }
+      #santa.up{
+        top: 0%;
+      }
+      #santa.down{
+        top: 70%;
+      }
     </style>
   </head>
   <body>
     <div id="map"></div>
+    <div id="santa" class="up">
+      <img src="santa_wave.gif" alt="Santa waving on a sleigh"/>
+    </div>
     <script>
       var map;
       function initMap() {
@@ -32,6 +52,8 @@
         var panner = setInterval(function(){
           pan(panConfig.distance)
         }, panConfig.interval);
+
+        wireSanta();
       }
 
       /**
@@ -45,6 +67,29 @@
           lat: center.lat(),
           lng: center.lng() - increment
         });
+      }
+
+      /**
+       * Wire up the santa element to keep moving up and down.
+       * We toggle between `up` and `down` css classes and when the
+       * `transitionend` event fires to keep him moving smoothly.
+       */
+      function wireSanta() {
+        var santa = document.getElementById('santa');
+        santa.addEventListener('transitionend', function(){
+          switch(santa.className){
+            case 'up':
+              santa.className = 'down';
+              break;
+            case 'down':
+              santa.className = 'up';
+              break;
+            default:
+              santa.className = 'up';
+          }
+        }, false);
+        // Kick it off by moving down.
+        santa.className = 'down';
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
