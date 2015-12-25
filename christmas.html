@@ -43,7 +43,34 @@
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: 0, lng: 0},
           zoom: 2,
-          streetViewControl: false
+          streetViewControl: false,
+          styles: [
+            {
+              "elementType": "labels",
+              "stylers": [
+                { "weight": 0.1 },
+                { "color": "#49796B" }
+              ]
+            },{
+              "featureType": "landscape",
+              "elementType": "geometry",
+              "stylers": [
+                { "color": "#B9EBFF" }
+              ]
+            },{
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [
+                { "color": "#e3fff7" }
+              ]
+            },{
+              "featureType": "administrative",
+              "elementType": "geometry.stroke",
+              "stylers": [
+                { "color": "#ff0000" }
+              ]
+            }
+          ],
         });
 
         var panConfig = {
