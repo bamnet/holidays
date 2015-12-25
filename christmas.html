@@ -33,6 +33,7 @@
       }
 
       #message {
+        display: none;
         position: absolute;
         left: 20%;
         bottom: 0px;
@@ -57,7 +58,6 @@
       <img src="santa_wave.gif" alt="Santa waving on a sleigh"/>
     </div>
     <div id="message">
-      I hope you and yours have a very Merry Christmas!
     </div>
     <script>
       var map;
@@ -104,6 +104,7 @@
         }, panConfig.interval);
 
         wireSanta();
+        parseMessage();
       }
 
       /**
@@ -140,6 +141,24 @@
         }, false);
         // Kick it off by moving down.
         santa.className = 'down';
+      }
+
+      /**
+       * Parse a message from the URL hash and display it in a box.
+       * If there is no message the box is hidden.
+       */
+      function parseMessage() {
+        var input = window.location.hash.substring(1);
+        var message = window.atob(input);
+        if( message == '') {
+          return;
+        }
+        var holder = document.getElementById('message');
+        // Use textContent to attempt to avoid HTML injection problems.
+        holder.textContent = message;
+        // Replace any newline with a <br />.
+        holder.innerHTML = holder.innerHTML.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        holder.style.display = 'block';
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
