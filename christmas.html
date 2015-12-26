@@ -64,11 +64,13 @@
     <meta property="og:title" content="Merry Christmas" />
     <meta property="twitter:title" content="Merry Christmas" />
 
-    <meta name="description" content="" />
-    <meta property="og:description" content="" />
+    <meta name="description" content="A homemade e-card using the Google Maps APIs" />
+    <meta property="og:description" content="A homemade e-card using the Google Maps API" />
+    <meta property="twitter:description" content="A homemade e-card using the Google Maps API" />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@bamnet" />
+    <meta name="twitter:image" content="https://bamnet.github.io/holidays/screenshot.png" />
 
     <meta property="og:type" content="article" />
     <meta property="og:image" content="https://bamnet.github.io/holidays/screenshot.png" />
@@ -82,6 +84,7 @@
     <div id="message">
     </div>
     <script>
+      'use strict';
       parseMessage();
       var map;
       function initMap() {
@@ -189,8 +192,14 @@
        * @param {string} message The message to put in the metatags.
        */
       function updateMetaTags(message) {
-        document.querySelector('meta[name="description"]').setAttribute('content', message);
-        document.querySelector('meta[property="og:description"]').setAttribute('content', message);
+        var selectors = [
+          'meta[name="description"]',
+          'meta[property="og:description"]',
+          'meta[property="twitter:description"]'
+        ];
+        for (let selector of selectors) {
+          document.querySelector(selector).setAttribute('content', message);
+        }
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
