@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Merry Christmas</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
@@ -59,8 +58,21 @@
 
       ga('create', 'UA-271041-17', 'auto');
       ga('send', 'pageview');
-
     </script>
+
+    <title>Merry Christmas</title>
+    <meta property="og:title" content="Merry Christmas" />
+    <meta property="twitter:title" content="Merry Christmas" />
+
+    <meta name="description" content="" />
+    <meta property="og:description" content="" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bamnet" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://bamnet.github.io/holidays/christmas" />
+    <meta property="fb:admins" content="1240170051" />
   </head>
   <body>
     <div id="map"></div>
@@ -70,6 +82,7 @@
     <div id="message">
     </div>
     <script>
+      parseMessage();
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -114,7 +127,6 @@
         }, panConfig.interval);
 
         wireSanta();
-        parseMessage();
       }
 
       /**
@@ -169,6 +181,16 @@
         // Replace any newline with a <br />.
         holder.innerHTML = holder.innerHTML.replace(/(?:\r\n|\r|\n)/g, '<br />');
         holder.style.display = 'block';
+        updateMetaTags(message);
+      }
+
+      /**
+       * Update metatags based on the message.
+       * @param {string} message The message to put in the metatags.
+       */
+      function updateMetaTags(message) {
+        document.querySelector('meta[name="description"]').setAttribute('content', message);
+        document.querySelector('meta[property="og:description"]').setAttribute('content', message);
       }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
