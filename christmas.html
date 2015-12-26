@@ -13,6 +13,14 @@
       #map {
         height: 100%;
       }
+      #mark {
+        position: absolute;
+        bottom: 0;
+        left: 85px;
+      }
+      #mark img {
+        height: 22px;
+      }
       #santa {
         position:absolute;
         left: 40%;
@@ -30,7 +38,6 @@
       #santa.down{
         top: 70%;
       }
-
       #message {
         display: none;
         position: absolute;
@@ -81,8 +88,12 @@
     <div id="santa" class="up">
       <img src="santa_wave.gif" alt="Santa waving on a sleigh"/>
     </div>
-    <div id="message">
+    <div id="mark">
+      <a href="https://github.com/bamnet/holidays">
+        <img src="github_mark.png" />
+      </a>
     </div>
+    <div id="message"></div>
     <script>
       'use strict';
       parseMessage();
