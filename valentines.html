@@ -93,6 +93,7 @@
         zoomListener = google.maps.event.addListener(map, 'tilesloaded', function(){
           var zoom = map.getZoom();
           if (zoom >= 20) {
+            ga('send', 'event', 'zoom', 'complete');
             google.maps.event.removeListener(zoomListener);
             displayText();
             return;
@@ -100,6 +101,7 @@
           zoomIn();
         });
         // Zoom in once to kick off the process.
+        ga('send', 'event', 'zoom', 'start');
         zoomIn();
       }
 
@@ -121,6 +123,7 @@
         });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
+          ga('send', 'event', 'icon', 'click');
         });
       }
 
