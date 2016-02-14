@@ -110,7 +110,8 @@
         var marker = new google.maps.Marker({
           position: map.getCenter(),
           map: map,
-          label: {color: 'white', text: '♥'}
+          label: {color: 'red', text: '♥', fontSize: '16px'},
+          icon: 'https://maps.google.com/mapfiles/ms/icons/grey.png',
         });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
