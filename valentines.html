@@ -111,7 +111,13 @@
           position: map.getCenter(),
           map: map,
           label: {color: 'red', text: '♥', fontSize: '16px'},
-          icon: 'https://maps.google.com/mapfiles/ms/icons/grey.png',
+          icon: {
+            url: 'https://maps.google.com/mapfiles/ms/icons/grey.png',
+            size: new google.maps.Size(32, 35),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(16, 32),
+            labelOrigin: new google.maps.Point(15,11)
+          },
         });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
