@@ -105,7 +105,7 @@
 
       function displayText(){
         var infowindow = new google.maps.InfoWindow({
-          content: 'To: You<br />From: Me<br/><br />Happy Valentines Day!'
+          content: 'Happy Valentines Day!'
         });
         var marker = new google.maps.Marker({
           position: map.getCenter(),
@@ -116,7 +116,7 @@
             size: new google.maps.Size(32, 35),
             origin: new google.maps.Point(0, 0),
             anchor: new google.maps.Point(16, 32),
-            labelOrigin: new google.maps.Point(15,5)
+            labelOrigin: new google.maps.Point(15,11)
           },
         });
         marker.addListener('click', function() {
