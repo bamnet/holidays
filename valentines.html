@@ -94,12 +94,27 @@
           var zoom = map.getZoom();
           if (zoom >= 20) {
             google.maps.event.removeListener(zoomListener);
+            displayText();
             return;
           }
           zoomIn();
         });
         // Zoom in once to kick off the process.
         zoomIn();
+      }
+
+      function displayText(){
+        var infowindow = new google.maps.InfoWindow({
+          content: 'To: You<br />From: Me<br/><br />Happy Valentines Day!'
+        });
+        var marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          label: '♥'
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
       }
 
       function initMap() {
