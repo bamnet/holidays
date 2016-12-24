@@ -55,7 +55,20 @@
         color: #00008B;
         opacity: 0.8;
       }
+
+      .snowflake {
+        position: absolute;
+        top: -25px;
+        z-index: 1000;
+        color: white;
+        text-shadow: -1px 0 grey, 0 1px grey, 1px 0 grey, 0 -1px grey;
+        opacity: .8;
+
+        transition-property: top;
+        transition-timing-function: ease-in;
+      }
     </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -99,6 +112,7 @@
       </a>
     </div>
     <div id="message"></div>
+    <div id="snowstorm"></div>
     <script>
       'use strict';
       parseMessage();
@@ -146,6 +160,7 @@
         }, panConfig.interval);
 
         wireSanta();
+        snowfall(50);
       }
 
       /**
@@ -182,6 +197,42 @@
         }, false);
         // Kick it off by moving down.
         santa.className = 'down';
+      }
+
+      /**
+       * Creates a bunch of snowflakes on the page.
+       * @param(number) flakes Number of snowflakes to display.
+       */
+      function snowfall(flakes) {
+        var max_group = 5;
+        var groups = Math.ceil(flakes / max_group);
+        for(var i = 0; i < groups;  i++) {
+          window.setTimeout(function(){
+            for(var j = 0; j < max_group; j++) {
+            addSnowflake();
+            }
+          }, 250 * i);
+        }
+      }
+
+      function addSnowflake() {
+        var flake = document.createElement('i');
+        flake.innerHTML = 'ac_unit';
+        flake.className = 'material-icons snowflake';
+
+        flake.style.left = '' + (Math.random() * 100) + '%';
+        var min = 3000;
+        var max = 4000;
+        flake.style.transitionDuration = '' + (Math.random() * (max - min) + min) + 'ms';
+        flake.addEventListener("transitionend", function() {
+          flake.parentNode.removeChild(flake);
+          addSnowflake();
+        });
+        var storm = document.getElementById('snowstorm');
+        storm.appendChild(flake);
+
+        window.getComputedStyle(flake).top;
+        flake.style.top = '100%';
       }
 
       /**
