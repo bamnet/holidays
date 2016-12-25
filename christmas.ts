@@ -1,5 +1,5 @@
 export interface Config {
-  santa: HTMLElement
+  santa: HTMLElement;
 }
 
 class Christmas {
@@ -18,7 +18,7 @@ class Christmas {
    */
   private setupSanta() {
     this.santa.addEventListener("transitionend", () => {
-      switch(this.santa.className) {
+      switch (this.santa.className) {
         case "up":
           this.santa.className = "down";
           break;

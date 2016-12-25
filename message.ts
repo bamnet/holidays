@@ -7,13 +7,13 @@ class Message {
    */
   parseMessage(input: string) {
     let message = window.atob(input);
-    if (message === '') {
+    if (message === "") {
       return;
     }
     this.elem.textContent = message;
     // Replace any newline with a <br />.
-    this.elem.innerHTML = this.elem.innerHTML.replace(/(?:\r\n|\r|\n)/g, '<br />');
-    this.elem.style.display = 'block';
+    this.elem.innerHTML = this.elem.innerHTML.replace(/(?:\r\n|\r|\n)/g, "<br />");
+    this.elem.style.display = "block";
 
     this.updateMetaTags(message);
   }
@@ -24,12 +24,12 @@ class Message {
   */
   private updateMetaTags(message: string) {
     let selectors = [
-      'meta[name="description"]',
-      'meta[property="og:description"]',
-      'meta[property="twitter:description"]'
+      "meta[name=\"description\"]",
+      "meta[property=\"og:description\"]",
+      "meta[property=\"twitter:description\"]"
     ];
     selectors.forEach(selector => {
-      document.querySelector(selector).setAttribute('content', message);
+      document.querySelector(selector).setAttribute("content", message);
     });
   }
 }

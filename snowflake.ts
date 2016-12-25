@@ -16,9 +16,9 @@ class Snowflakes {
 
   public constructor(private elem: Node, private count: number) {
     let groups = Math.ceil(count / this.max_group);
-    for(let i = 0; i<groups; i++) {
+    for (let i = 0; i < groups; i++) {
       window.setTimeout(() => {
-        for(let j = 0; j< this.max_group; j++){
+        for (let j = 0; j < this.max_group; j++) {
           this.addSnowflake();
         }
       }, this.group_interval * i);
@@ -29,15 +29,15 @@ class Snowflakes {
     if (!this.enabled) {
       return;
     }
-    let flake = document.createElement('i');
-    flake.innerHTML = 'ac_unit';
-    flake.className = 'material-icons snowflake';
+    let flake = document.createElement("i");
+    flake.innerHTML = "ac_unit";
+    flake.className = "material-icons snowflake";
 
     let left = Math.random() * 100;
-    flake.style.left = left + '%';
+    flake.style.left = left + "%";
 
     let duration = Math.random() * (this.transition_max - this.transition_min) + this.transition_min;
-    flake.style.transitionDuration = duration + 'ms';
+    flake.style.transitionDuration = duration + "ms";
 
     flake.addEventListener("transitionend", () => {
       flake.parentNode.removeChild(flake);
@@ -50,6 +50,6 @@ class Snowflakes {
     // Without this, the flake skips animating and jumps straight down.
     window.getComputedStyle(flake).top;
 
-    flake.style.top = '100%';
+    flake.style.top = "100%";
   }
 }
