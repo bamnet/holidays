@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+      #mark {
+        position: absolute;
+        bottom: 0;
+        left: 85px;
+      }
+      #mark img {
+        height: 22px;
+      }
+    </style>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-271041-17', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <title>Happy Valentine's Day</title>
+    <meta property="og:title" content="Happy Valentine's Day" />
+    <meta property="twitter:title" content="Happy Valentine's Day" />
+
+    <meta name="description" content="A homemade e-card using the Google Maps APIs" />
+    <meta property="og:description" content="A homemade e-card using the Google Maps API" />
+    <meta property="twitter:description" content="A homemade e-card using the Google Maps API" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bamnet" />
+    <meta name="twitter:image" content="hhttp://maps.googleapis.com/maps/api/staticmap?center=11.547266,76.082740&zoom=20&format=png&size=640x480&maptype=roadmap&style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:water|color:0xffadad&style=feature:landscape|element:geometry.fill|color:0xe26579&style=feature:poi|visibility:off&style=feature:administrative|visibility:off&style=feature:road|visibility:off&style=feature:transit|visibility:off&key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&signature=ZHPppswHdJ3VtRqSasdALh5RAfM=" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="http://maps.googleapis.com/maps/api/staticmap?center=11.547266,76.082740&zoom=20&format=png&size=640x480&maptype=roadmap&style=element:labels|visibility:off&style=element:geometry.stroke|visibility:off&style=feature:water|color:0xffadad&style=feature:landscape|element:geometry.fill|color:0xe26579&style=feature:poi|visibility:off&style=feature:administrative|visibility:off&style=feature:road|visibility:off&style=feature:transit|visibility:off&key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&signature=ZHPppswHdJ3VtRqSasdALh5RAfM=" />
+    <meta property="fb:admins" content="1240170051" />
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="mark">
+      <a href="https://github.com/bamnet/holidays">
+        <img src="github_mark.png" />
+      </a>
+    </div>
+    <script>
+      'use strict';
+      var map;
+      var panTimer;
+      var zoomListener;
+
+      function panAndZoom() {
+        panTimer = window.setInterval(function(){
+          var center = map.getCenter();
+          var destination = {lat: 11.547266, lng: 76.082740};
+          var delta = {
+            lat: destination.lat - center.lat(),
+            lng: destination.lng - center.lng()
+          };
+          if (delta.lat < 0.01 && delta.lng < 0.01){
+            window.clearInterval(panTimer);
+            zoomer();
+            return;
+          }
+          if (delta.lat > 0.5) {
+            destination.lat = center.lat() + 0.5;
+          }
+          if (delta.lng > 2){
+            destination.lng = center.lng() + 2;
+          }
+          map.panTo(destination);
+        }, 80);
+      }
+
+      function zoomIn() {
+        var zoom = map.getZoom();
+        map.setZoom(zoom + 2);
+      }
+
+      function zoomer(){
+        // When the tiles have loaded, zoom in to the next level.
+        zoomListener = google.maps.event.addListener(map, 'tilesloaded', function(){
+          var zoom = map.getZoom();
+          if (zoom >= 20) {
+            ga('send', 'event', 'zoom', 'complete');
+            google.maps.event.removeListener(zoomListener);
+            displayText();
+            return;
+          }
+          zoomIn();
+        });
+        // Zoom in once to kick off the process.
+        ga('send', 'event', 'zoom', 'start');
+        zoomIn();
+      }
+
+      function displayText(){
+        var infowindow = new google.maps.InfoWindow({
+          content: 'Happy Valentine\'s Day!'
+        });
+        var marker = new google.maps.Marker({
+          position: map.getCenter(),
+          map: map,
+          label: {color: 'red', text: '♥', fontSize: '16px'},
+          icon: {
+            url: 'https://maps.google.com/mapfiles/ms/icons/grey.png',
+            size: new google.maps.Size(32, 35),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(16, 32),
+            labelOrigin: new google.maps.Point(15,11)
+          },
+        });
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+          ga('send', 'event', 'icon', 'click');
+        });
+      }
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 0, lng: 0},
+          zoom: 2,
+          streetViewControl: false,
+          styles: [
+            {
+              "elementType": "labels",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            },{
+              "elementType": "geometry.stroke",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            },{
+              "featureType": "water",
+              "stylers": [
+                { "color": "#ffadad" }
+              ]
+            },{
+              "featureType": "landscape",
+              "elementType": "geometry.fill",
+              "stylers": [
+                { "color": "#e26579" }
+              ]
+            },{
+              "featureType": "poi",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            },{
+              "featureType": "administrative",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            },{
+              "featureType": "road",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            },{
+              "featureType": "transit",
+              "stylers": [
+                { "visibility": "off" }
+              ]
+            }
+          ],
+        });
+        panAndZoom();
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
+  </body>
+</html>
