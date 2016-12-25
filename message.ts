@@ -1,8 +1,6 @@
 class Message {
-  constructor(private elem: HTMLElement) {
+  constructor(private elem: HTMLElement) {}
 
-  }
-  
   /**
    * Parse a message from the URL hash and display it in a box.
    * If there is no message the box is hidden.
