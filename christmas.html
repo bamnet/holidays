@@ -111,9 +111,13 @@
     <script>
       'use strict';
 
-      function loadMessage() {
+      function initMessage() {
         var msg = new Message(document.getElementById('message'));
         msg.parseMessage(window.location.hash.substring(1));
+      }
+
+      function initSnowfall() {
+        new Snowflakes(document.getElementById("snowstorm"), 50);
       }
 
       var map;
@@ -160,7 +164,6 @@
         }, panConfig.interval);
 
         wireSanta();
-        var snowfall = new Snowflakes(document.getElementById("snowstorm"), 50);
       }
 
       /**
@@ -199,8 +202,8 @@
         santa.className = 'down';
       }
     </script>
-    <script src="snowflake.js"></script>
-    <script src="message.js" onload="loadMessage();"></script>
+    <script src="snowflake.js" onload="initSnowfall();"></script>
+    <script src="message.js" onload="initMessage();"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
   </body>
 </html>
