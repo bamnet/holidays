@@ -120,6 +120,13 @@
         new Snowflakes(document.getElementById("snowstorm"), 50);
       }
 
+      function initChristmas() {
+        var config = {
+          santa: document.getElementById("santa"),
+        };
+        new Christmas(config);
+      }
+
       var map;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -162,8 +169,6 @@
         var panner = setInterval(function(){
           pan(panConfig.distance)
         }, panConfig.interval);
-
-        wireSanta();
       }
 
       /**
@@ -178,30 +183,8 @@
           lng: center.lng() - increment
         });
       }
-
-      /**
-       * Wire up the santa element to keep moving up and down.
-       * We toggle between `up` and `down` css classes and when the
-       * `transitionend` event fires to keep him moving smoothly.
-       */
-      function wireSanta() {
-        var santa = document.getElementById('santa');
-        santa.addEventListener('transitionend', function(){
-          switch(santa.className){
-            case 'up':
-              santa.className = 'down';
-              break;
-            case 'down':
-              santa.className = 'up';
-              break;
-            default:
-              santa.className = 'up';
-          }
-        }, false);
-        // Kick it off by moving down.
-        santa.className = 'down';
-      }
     </script>
+    <script src="christmas.js" onload="initChristmas();"></script>
     <script src="snowflake.js" onload="initSnowfall();"></script>
     <script src="message.js" onload="initMessage();"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
