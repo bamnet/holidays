@@ -161,7 +161,7 @@
         }, panConfig.interval);
 
         wireSanta();
-        snowfall(50);
+        var snowfall = new Snowflakes(document.getElementById("snowstorm"), 50);
       }
 
       /**
@@ -201,42 +201,6 @@
       }
 
       /**
-       * Creates a bunch of snowflakes on the page.
-       * @param(number) flakes Number of snowflakes to display.
-       */
-      function snowfall(flakes) {
-        var max_group = 5;
-        var groups = Math.ceil(flakes / max_group);
-        for(var i = 0; i < groups;  i++) {
-          window.setTimeout(function(){
-            for(var j = 0; j < max_group; j++) {
-            addSnowflake();
-            }
-          }, 250 * i);
-        }
-      }
-
-      function addSnowflake() {
-        var flake = document.createElement('i');
-        flake.innerHTML = 'ac_unit';
-        flake.className = 'material-icons snowflake';
-
-        flake.style.left = '' + (Math.random() * 100) + '%';
-        var min = 3000;
-        var max = 4000;
-        flake.style.transitionDuration = '' + (Math.random() * (max - min) + min) + 'ms';
-        flake.addEventListener("transitionend", function() {
-          flake.parentNode.removeChild(flake);
-          addSnowflake();
-        });
-        var storm = document.getElementById('snowstorm');
-        storm.appendChild(flake);
-
-        window.getComputedStyle(flake).top;
-        flake.style.top = '100%';
-      }
-
-      /**
        * Parse a message from the URL hash and display it in a box.
        * If there is no message the box is hidden.
        */
@@ -270,6 +234,7 @@
         }
       }
     </script>
+    <script src="snowflake.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF6jNkmXKXqGFOoy3M7PLxXZOeO8NE-y8&callback=initMap" async defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js" async defer></script>
   </body>
